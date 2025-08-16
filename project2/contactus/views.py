@@ -6,4 +6,4 @@ def home_page(request):
     """
     Render the home page.
     """
-    return render(request, 'website/home.html')
+    return render(request, 'contact/contact_tab.html')
