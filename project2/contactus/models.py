@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class ContactUsMessages(models.Model):
-    # user = models.OneToOneField(User, parent_link=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=150, null=False)
     email = models.EmailField(null=False)
     subject = models.CharField(max_length=255, null=False)
