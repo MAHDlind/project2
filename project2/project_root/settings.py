@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'contactus',
     "django_browser_reload",
+    'website'
 ]
 
 MIDDLEWARE = [
