@@ -2,326 +2,158 @@
 {% load static %}
 
 {% block base_pages %}
-<main class="main">
+    <main class="main">
 
-    <!-- Page Title -->
-    <div class="page-title dark-background" data-aos="fade"
-         style="background-image: url(../../static/website/img/travel/showcase-8.webp);">
-        <div class="container position-relative">
-            <h1>Blog</h1>
-            <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda numquam
-                molestias.</p>
-            <nav class="breadcrumbs">
-                <ol>
-                    <li><a href="{% url 'website:home_page' %}">Home</a></li>
-                    <li class="current">Blog</li>
-                </ol>
-            </nav>
+        <!-- Page Title -->
+        <div class="page-title dark-background" data-aos="fade"
+             style="background-image: url({% static 'website/img/travel/showcase-8.webp' %});">
+            <div class="container position-relative">
+                <h1>Blog</h1>
+                <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda
+                    numquam molestias.</p>
+                <nav class="breadcrumbs">
+                    <ol>
+                        <li><a href="{% url 'website:home_page' %}">Home</a></li>
+                        <li class="current">Blog</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
-    </div><!-- End Page Title -->
+        <!-- End Page Title -->
 
-    <!-- Blog Hero Section -->
-    <section id="blog-hero" class="blog-hero section">
-
-        <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="blog-grid">
-
-                <!-- Main Featured Post -->
-                <article class="blog-item main-feature" data-aos="fade-up">
-                    <img src="{% static 'website/img/blog/blog-post-9.webp' %}" alt="Blog Image" class="img-fluid">
-                    <div class="blog-content">
-                        <div class="post-meta">
-                            <span class="date">Apr. 14th, 2022</span>
-                            <span class="category">Technology</span>
-                        </div>
-                        <h2 class="post-title">
-                            <a href="blog-details.html"
-                               title="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua">Sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua</a>
-                        </h2>
-                        <p class="post-excerpt">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                            nisi ut aliquip ex ea commodo consequat.</p>
+        <!-- Layout Container -->
+        <div class="blog-layout container">
+            <div class="row">
+                <!-- Left Sidebar -->
+                <div class="sidebar left col-lg-2">
+                    <h5>Last posts</h5>
+                    <div class="recent-posts-sidebar">
+                        {% for post in last_posts|slice:":3" %}
+                            <a href="{% url 'blog:blog_details' post.id %}" class="recent-post-card">
+                                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="recent-post-thumb">
+                                <div class="recent-post-info">
+                                    <h6 class="recent-post-title">{{ post.title|truncatechars:40 }}</h6>
+                                    <p class="recent-post-excerpt">{{ post.context|truncatechars:26 }}</p>
+                                </div>
+                            </a>
+                        {% endfor %}
                     </div>
-                </article><!-- End Main Featured Post -->
+                </div>
+            </div>
 
-                <!-- Secondary Featured Posts -->
-                <div class="secondary-features">
-                    <article class="blog-item" data-aos="fade-up" data-aos-delay="100">
-                        <img src="{% static 'website/img/blog/blog-post-portrait-1.webp' %}" alt="Blog Image"
-                             class="img-fluid">
-                        <div class="blog-content">
-                            <div class="post-meta">
-                                <span class="date">Apr. 13th, 2022</span>
-                                <span class="category">Business</span>
-                            </div>
-                            <h3 class="post-title">
-                                <a href="blog-details.html" title="Ut enim ad minim veniam quis nostrud exercitation">Ut
-                                    enim ad minim veniam quis nostrud exercitation</a>
-                            </h3>
-                        </div>
-                    </article>
+            <!-- Main Content -->
+            <div class="content">
+                <aside>
+                    {% for post in posts %}
 
-                    <article class="blog-item" data-aos="fade-up" data-aos-delay="200">
-                        <img src="{% static 'website/img/blog/blog-post-portrait-2.webp' %}" alt="Blog Image"
-                             class="img-fluid">
-                        <div class="blog-content">
-                            <div class="post-meta">
-                                <span class="date">Apr. 12th, 2022</span>
-                                <span class="category">Lifestyle</span>
-                            </div>
-                            <h3 class="post-title">
-                                <a href="blog-details.html" title="Duis aute irure dolor in reprehenderit in voluptate">Duis
-                                    aute irure dolor in reprehenderit in voluptate</a>
-                            </h3>
-                        </div>
-                    </article>
-                </div><!-- End Secondary Features -->
+                        <section class="blog-hero section">
 
-                <!-- Regular Posts Grid -->
-                <div class="regular-posts">
-                    <article class="blog-item" data-aos="fade-up" data-aos-delay="300">
-                        <img src="{% static 'website/img/blog/blog-post-9.webp' %}" alt="Blog Image" class="img-fluid">
-                        <div class="blog-content">
-                            <div class="post-meta">
-                                <span class="date">Apr. 11th, 2022</span>
-                                <span class="category">Tech</span>
-                            </div>
-                            <h3 class="post-title">
-                                <a href="blog-details.html" title="Excepteur sint occaecat cupidatat non proident">Excepteur
-                                    sint occaecat cupidatat non proident</a>
-                            </h3>
-                        </div>
-                    </article>
+                            <article class="blog-item main-feature">
+                                <a href="{% url 'blog:blog_details' post.id %}">
+                                    <img src="{{ post.image.url }}" alt="Blog Image" class="img-fluid">
+                                </a>
+                                <div class="blog-content">
+                                    <div class="post-meta">
+                                        <span class="date">{{ post.published_date|date:"D d M Y" }}</span>
+                                        <span class="category">
+                                        {% for cat in post.category.all %}
+                                            <a style="color: whitesmoke; margin-right: 5px"
+                                               href="{% url 'blog:blog_home' cat %}">{{ cat.name }}
+                                                {% if not forloop.last %},{% endif %}</a>
+                                        {% endfor %}
+                                        </span>
+                                    </div>
+                                    <p class="category-post">
+                                        <a class="category-post" style="color: whitesmoke"
+                                           href="{% url 'blog:blog_details' post.id %}">{{ post.title }}</a>
+                                    </p>
+                                    <p class="post-excerpt">
+                                        {{ post.context|truncatechars:130 }}
+                                        <a style="color: whitesmoke" href="{% url 'blog:blog_details' post.id %}"
+                                           class="read-more">Read more</a>
+                                    </p>
+                                </div>
+                            </article>
 
-                    <article class="blog-item" data-aos="fade-up" data-aos-delay="400">
-                        <img src="{% static 'website/img/blog/blog-post-3.webp' %}" alt="Blog Image" class="img-fluid">
-                        <div class="blog-content">
-                            <div class="post-meta">
-                                <span class="date">Apr. 10th, 2022</span>
-                                <span class="category">Sports</span>
-                            </div>
-                            <h3 class="post-title">
-                                <a href="blog-details.html" title="Sunt in culpa qui officia deserunt mollit anim">Sunt
-                                    in culpa qui officia deserunt mollit anim</a>
-                            </h3>
-                        </div>
-                    </article>
+                        </section>
+                    {% endfor %}
+                </aside>
+            </div>
 
-                    <article class="blog-item" data-aos="fade-up" data-aos-delay="500">
-                        <img src="{% static 'website/img/blog/blog-post-6.webp' %}" alt="Blog Image" class="img-fluid">
-                        <div class="blog-content">
-                            <div class="post-meta">
-                                <span class="date">Apr. 9th, 2022</span>
-                                <span class="category">Culture</span>
-                            </div>
-                            <h3 class="post-title">
-                                <a href="blog-details.html" title="Id est laborum et dolorum fuga et harum quidem">Id
-                                    est laborum et dolorum fuga et harum quidem</a>
-                            </h3>
-                        </div>
-                    </article>
-                </div><!-- End Regular Posts -->
+            <!-- Right Sidebar -->
+            <div class="sidebar right col-lg-2">
+
+                <!-- Search Box -->
+                <div class="sidebar-box">
+                    <h5>Search</h5>
+                    <form action="{% url 'blog:blog_home' %}" method="get" class="search-form">
+                        <input type="text" name="q" placeholder="Search..." class="form-control">
+                        <button type="submit"><i class="bi bi-search"></i></button>
+                    </form>
+                </div>
+
+                <!-- Category Filter -->
+                <div class="sidebar-box">
+                    <h5>Categories</h5>
+                    <ul class="category-list">
+                        {% for cat in categories %}
+                            <li>
+                                <a href="{% url 'blog:blog_home' cat.name %}">
+                                    <i class="bi bi-chevron-right me-2"></i> {{ cat.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+
+                        <!-- Clear filter -->
+                        {% if search_query or current_category %}
+                            <li class="clear-filter">
+                                <a href="{% url 'blog:blog_home' %}">
+                                    <i class="bi bi-x-circle me-2"></i> Clear filter
+                                </a>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+
 
             </div>
 
+
         </div>
 
-    </section><!-- /Blog Hero Section -->
-
-    <!-- Blog Posts Section -->
-    <section id="blog-posts" class="blog-posts section">
-
-        <div class="container" data-aos="fade-up" data-aos-delay="100">
-            <div class="row gy-4">
-
-                <div class="col-lg-4">
-                    <article>
-
-                        <div class="post-img">
-                            <img src="{% static 'website/img/blog/blog-post-1.webp' %}" alt="" class="img-fluid">
-                        </div>
-
-                        <p class="post-category">Politics</p>
-
-                        <h2 class="title">
-                            <a href="blog-details.html">Dolorum optio tempore voluptas dignissimos</a>
-                        </h2>
-
-                        <div class="d-flex align-items-center">
-                            <img src="{% static 'website/img/person/person-f-12.webp' %}" alt=""
-                                 class="img-fluid post-author-img flex-shrink-0">
-                            <div class="post-meta">
-                                <p class="post-author">Maria Doe</p>
-                                <p class="post-date">
-                                    <time datetime="2022-01-01">Jan 1, 2022</time>
-                                </p>
-                            </div>
-                        </div>
-
-                    </article>
-                </div><!-- End post list item -->
-
-                <div class="col-lg-4">
-                    <article>
-
-                        <div class="post-img">
-                            <img src="{% static 'website/img/blog/blog-post-2.webp' %}" alt="" class="img-fluid">
-                        </div>
-
-                        <p class="post-category">Sports</p>
-
-                        <h2 class="title">
-                            <a href="blog-details.html">Nisi magni odit consequatur autem nulla dolorem</a>
-                        </h2>
-
-                        <div class="d-flex align-items-center">
-                            <img src="{% static 'website/img/person/person-f-13.webp' %}" alt=""
-                                 class="img-fluid post-author-img flex-shrink-0">
-                            <div class="post-meta">
-                                <p class="post-author">Allisa Mayer</p>
-                                <p class="post-date">
-                                    <time datetime="2022-01-01">Jun 5, 2022</time>
-                                </p>
-                            </div>
-                        </div>
-
-                    </article>
-                </div><!-- End post list item -->
-
-                <div class="col-lg-4">
-                    <article>
-
-                        <div class="post-img">
-                            <img src="{% static 'website/img/blog/blog-post-3.webp' %}" alt="" class="img-fluid">
-                        </div>
-
-                        <p class="post-category">Entertainment</p>
-
-                        <h2 class="title">
-                            <a href="blog-details.html">Possimus soluta ut id suscipit ea ut in quo quia et soluta</a>
-                        </h2>
-
-                        <div class="d-flex align-items-center">
-                            <img src="{% static 'website/img/person/person-m-10.webp' %}" alt=""
-                                 class="img-fluid post-author-img flex-shrink-0">
-                            <div class="post-meta">
-                                <p class="post-author">Mark Dower</p>
-                                <p class="post-date">
-                                    <time datetime="2022-01-01">Jun 22, 2022</time>
-                                </p>
-                            </div>
-                        </div>
-
-                    </article>
-                </div><!-- End post list item -->
-
-                <div class="col-lg-4">
-                    <article>
-
-                        <div class="post-img">
-                            <img src="{% static 'website/img/blog/blog-post-4.webp' %}" alt="" class="img-fluid">
-                        </div>
-
-                        <p class="post-category">Sports</p>
-
-                        <h2 class="title">
-                            <a href="blog-details.html">Non rem rerum nam cum quo minus olor distincti</a>
-                        </h2>
-
-                        <div class="d-flex align-items-center">
-                            <img src="{% static 'website/img/person/person-f-14.webp' %}" alt=""
-                                 class="img-fluid post-author-img flex-shrink-0">
-                            <div class="post-meta">
-                                <p class="post-author">Lisa Neymar</p>
-                                <p class="post-date">
-                                    <time datetime="2022-01-01">Jun 30, 2022</time>
-                                </p>
-                            </div>
-                        </div>
-
-                    </article>
-                </div><!-- End post list item -->
-
-                <div class="col-lg-4">
-                    <article>
-
-                        <div class="post-img">
-                            <img src="{% static 'website/img/blog/blog-post-5.webp' %}" alt="" class="img-fluid">
-                        </div>
-
-                        <p class="post-category">Politics</p>
-
-                        <h2 class="title">
-                            <a href="blog-details.html">Accusamus quaerat aliquam qui debitis facilis consequatur</a>
-                        </h2>
-
-                        <div class="d-flex align-items-center">
-                            <img src="{% static 'website/img/person/person-m-11.webp' %}" alt=""
-                                 class="img-fluid post-author-img flex-shrink-0">
-                            <div class="post-meta">
-                                <p class="post-author">Denis Peterson</p>
-                                <p class="post-date">
-                                    <time datetime="2022-01-01">Jan 30, 2022</time>
-                                </p>
-                            </div>
-                        </div>
-
-                    </article>
-                </div><!-- End post list item -->
-
-                <div class="col-lg-4">
-                    <article>
-
-                        <div class="post-img">
-                            <img src="{% static 'website/img/blog/blog-post-6.webp' %}" alt="" class="img-fluid">
-                        </div>
-
-                        <p class="post-category">Entertainment</p>
-
-                        <h2 class="title">
-                            <a href="blog-details.html">Distinctio provident quibusdam numquam aperiam aut</a>
-                        </h2>
-
-                        <div class="d-flex align-items-center">
-                            <img src="{% static 'website/img/person/person-f-15.webp' %}" alt=""
-                                 class="img-fluid post-author-img flex-shrink-0">
-                            <div class="post-meta">
-                                <p class="post-author">Mika Lendon</p>
-                                <p class="post-date">
-                                    <time datetime="2022-01-01">Feb 14, 2022</time>
-                                </p>
-                            </div>
-                        </div>
-
-                    </article>
-                </div><!-- End post list item -->
-
+        <!-- Pagination -->
+        <section id="pagination-2" class="pagination-2 section">
+            <div class="container">
+                <div class="d-flex justify-content-center">
+                    <ul>
+                        {% if posts.has_previous %}
+                            <li>
+                                <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ posts.previous_page_number }}">
+                                    <i class="bi bi-chevron-left"></i>
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% for index in posts.paginator.page_range %}
+                            <li>
+                                <a {% if posts.number == index %}class="active"{% endif %}
+                                   href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}page={{ index }}">
+                                    {{ index }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                        {% if posts.has_next %}
+                            <li>
+                                <a href="?{% if request.GET.q %}q={{ request.GET.q }}&{% endif %}{% if cat %}cat={{ cat }}&{% endif %}page={{ posts.next_page_number }}">
+                                    <i class="bi bi-chevron-right"></i>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
-        </div>
+        </section>
 
-    </section><!-- /Blog Posts Section -->
 
-    <!-- Pagination 2 Section -->
-    <section id="pagination-2" class="pagination-2 section">
-
-        <div class="container">
-            <div class="d-flex justify-content-center">
-                <ul>
-                    <li><a href="#"><i class="bi bi-chevron-left"></i></a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#" class="active">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li>...</li>
-                    <li><a href="#">10</a></li>
-                    <li><a href="#"><i class="bi bi-chevron-right"></i></a></li>
-                </ul>
-            </div>
-        </div>
-
-    </section><!-- /Pagination 2 Section -->
-
-</main>
+    </main>
 {% endblock %}

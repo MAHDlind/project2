@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+    {% extends 'base.html' %}
 {% load static %}
 
 {% block base_pages %}
@@ -14,6 +14,7 @@
                 <nav class="breadcrumbs">
                     <ol>
                         <li><a href="{% url 'website:home_page' %}">Home</a></li>
+                        <li><a href="{% url 'blog:blog_home' %}">Blog</a></li>
                         <li class="current">Blog Details</li>
                     </ol>
                 </nav>
@@ -26,25 +27,26 @@
 
                 <article class="article">
                     <div class="article-header">
-                        <div class="meta-categories" data-aos="fade-up">
-                            <a href="#" class="category">Technology</a>
-                            <a href="#" class="category">Innovation</a>
-                        </div>
+                            <div class="meta-categories" data-aos="fade-up">
+                                {% for cat in post.category.all %}
+                                <a href="#" class="category">{{ cat.name }}</a>
+                                {% endfor %}
+                            </div>
 
                         <h1 class="title" data-aos="fade-up" data-aos-delay="100">The Evolution of User Interface
                             Design: From Skeuomorphism to Neumorphism</h1>
 
                         <div class="article-meta" data-aos="fade-up" data-aos-delay="200">
                             <div class="author">
-                                <img src="{% static 'website/img/person/person-m-6.webp' %}' %}" alt="Author"
+                                <img src="{{ author.profile_image.url }}" alt="Author"
                                      class="author-img">
                                 <div class="author-info">
-                                    <h4>David Wilson</h4>
+                                    <h4>{{ post.author.get_full_name }}</h4>
                                     <span>UI/UX Design Lead</span>
                                 </div>
                             </div>
                             <div class="post-info">
-                                <span><i class="bi bi-calendar4-week"></i> April 15, 2025</span>
+                                <span><i class="bi bi-calendar4-week"></i> {{ post.published_date|date:" D d M Y" }} </span>
                                 <span><i class="bi bi-clock"></i> 10 min read</span>
                                 <span><i class="bi bi-chat-square-text"></i> 32 Comments</span>
                             </div>
@@ -52,7 +54,7 @@
                     </div>
 
                     <div class="article-featured-image" data-aos="zoom-in">
-                        <img src="{% static 'website/img/blog/blog-hero-1.webp' %}" alt="UI Design Evolution"
+                        <img src="{{ post.image.url }}" alt="UI Design Evolution"
                              class="img-fluid">
                     </div>
 
@@ -61,7 +63,7 @@
                             <h3>Table of Contents</h3>
                             <nav>
                                 <ul>
-                                    <li><a href="#introduction" class="active">Introduction</a></li>
+                                    <li><a href="#introduction">Introduction</a></li>
                                     <li><a href="#skeuomorphism">The Skeuomorphic Era</a></li>
                                     <li><a href="#flat-design">Flat Design Revolution</a></li>
                                     <li><a href="#material-design">Material Design</a></li>
@@ -74,17 +76,9 @@
                         <div class="article-content">
                             <div class="content-section" id="introduction" data-aos="fade-up">
                                 <p class="lead">
-                                    The journey of user interface design has been marked by significant shifts in
-                                    aesthetic approaches, each era bringing its own unique perspective on how digital
-                                    interfaces should look and feel.
+                                    {{ post.context }}
                                 </p>
 
-                                <p>
-                                    From the early days of graphical user interfaces to today's sophisticated design
-                                    systems, the evolution of UI design reflects not just technological advancement, but
-                                    also changing user expectations and cultural shifts in how we interact with digital
-                                    products.
-                                </p>
 
                                 <div class="highlight-quote">
                                     <blockquote>
@@ -277,63 +271,64 @@
         </section><!-- /Blog Details Section -->
 
         <!-- Blog Author Section -->
-        <section id="blog-author" class="blog-author section">
+                <section id="blog-author" class="blog-author section">
 
-            <div class="container" data-aos="fade-up">
-                <div class="author-card">
-                    <div class="author-background" data-aos="fade-right" data-aos-delay="100">
-                        <div class="author-image-wrapper">
-                            <img src="{% static 'website/img/person/person-m-12.webp' %}" class="author-image" alt=""
-                                 loading="lazy">
+                    <div class="container" data-aos="fade-up">
+                        <div class="author-card">
+                            <div class="author-background" data-aos="fade-right" data-aos-delay="100">
+                                <div class="author-image-wrapper">
+                                    <img src="{{ author.profile_image.url }}" class="author-image" alt=""
+                                         loading="lazy">
+                                </div>
+                            </div>
+
+                            <div class="author-details" data-aos="fade-left" data-aos-delay="200">
+                                <div class="author-meta">
+                                    <h3 class="author-name">{{ post.author.get_full_name }}</h3>
+                                    <div class="author-credentials">
+                                        <span class="badge">Tech Journalist</span>
+                                        <span class="badge">UX Designer</span>
+                                    </div>
+                                </div>
+
+                                <div class="author-description">
+                                    Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus.
+                                    Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                                </div>
+
+                                <div class="author-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-value">120+</span>
+                                        <span class="stat-label">Articles</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-value">15k</span>
+                                        <span class="stat-label">Readers</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-value">4.9</span>
+                                        <span class="stat-label">Rating</span>
+                                    </div>
+                                </div>
+
+                                <div class="author-footer">
+                                    <div class="social-links">
+                                        <a href="Check out mahdi (@mahdi448267507): https://x.com/mahdi448267507?t=ESWftTGtlwPr0DTPwFFz4w&s=35" title="Twitter">
+                                            <i class="bi bi-twitter-x"></i></a>
+                                        <a href="https://www.linkedin.com/in/mahdi-hosseinkhani-4551202a4/" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                                        <a href="https://medium.com/#" title="Medium"><i class="bi bi-medium"></i></a>
+                                        <a href="https://github.com/MAHDlind" title="GitHub"><i class="bi bi-github"></i></a>
+                                    </div>
+                                    <a href="{% url 'website:contact_page' %}" class="btn-connect">
+                                        Connect with {{ post.author.first_name }}
+                                        <i class="bi bi-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="author-details" data-aos="fade-left" data-aos-delay="200">
-                        <div class="author-meta">
-                            <h3 class="author-name">Alex Richardson</h3>
-                            <div class="author-credentials">
-                                <span class="badge">Tech Journalist</span>
-                                <span class="badge">UX Designer</span>
-                            </div>
-                        </div>
-
-                        <div class="author-description">
-                            Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus.
-                            Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                        </div>
-
-                        <div class="author-stats">
-                            <div class="stat-item">
-                                <span class="stat-value">120+</span>
-                                <span class="stat-label">Articles</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">15k</span>
-                                <span class="stat-label">Readers</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-value">4.9</span>
-                                <span class="stat-label">Rating</span>
-                            </div>
-                        </div>
-
-                        <div class="author-footer">
-                            <div class="social-links">
-                                <a href="https://twitter.com/#" title="Twitter"><i class="bi bi-twitter-x"></i></a>
-                                <a href="https://linkedin.com/#" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                                <a href="https://medium.com/#" title="Medium"><i class="bi bi-medium"></i></a>
-                                <a href="https://github.com/#" title="GitHub"><i class="bi bi-github"></i></a>
-                            </div>
-                            <a href="#" class="btn-connect">
-                                Connect with Alex
-                                <i class="bi bi-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </section><!-- /Blog Author Section -->
+                </section><!-- /Blog Author Section -->
 
         <!-- Blog Comments Section -->
         <section id="blog-comments" class="blog-comments section">
