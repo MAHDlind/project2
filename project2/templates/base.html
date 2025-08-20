@@ -49,38 +49,38 @@
             <h1 class="sitename">Tour</h1>
         </a>
 
-<nav id="navmenu" class="navmenu">
-    <ul>
-        <li>
-          <a href="{% url 'website:home_page' %}"
-             {% if request.path == '/' %}class="active"{% endif %}>
-             Home
-          </a>
-        </li>
+        <nav id="navmenu" class="navmenu">
+            <ul>
+                <li>
+                    <a href="{% url 'website:home_page' %}"
+                       {% if request.path == '/' %}class="active"{% endif %}>
+                        Home
+                    </a>
+                </li>
 
-        <li>
-          <a href="{% url 'website:about_page' %}"
-             {% if request.path == '/about/' %}class="active"{% endif %}>
-             About
-          </a>
-        </li>
+                <li>
+                    <a href="{% url 'website:about_page' %}"
+                       {% if request.path == '/about/' %}class="active"{% endif %}>
+                        About
+                    </a>
+                </li>
 
-        <li>
-          <a href="{% url 'blog:blog_home' %}"
-             {% if request.path|slice:":6" == '/blog/' %}class="active"{% endif %}>
-             Blog
-          </a>
-        </li>
+                <li>
+                    <a href="{% url 'blog:blog_home' %}"
+                       {% if request.path|slice:":6" == '/blog/' %}class="active"{% endif %}>
+                        Blog
+                    </a>
+                </li>
 
-        <li>
-          <a href="{% url 'website:contact_page' %}"
-             {% if request.path == '/contact/' %}class="active"{% endif %}>
-             Contact
-          </a>
-        </li>
-    </ul>
-    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-</nav>
+                <li>
+                    <a href="{% url 'website:contact_page' %}"
+                       {% if request.path == '/contact/' %}class="active"{% endif %}>
+                        Contact
+                    </a>
+                </li>
+            </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
 
 
         <a class="btn-getstarted" href="{% url 'website:get_start_page' %}">Get Started</a>
@@ -99,12 +99,28 @@
                 <div class="col-lg-6">
                     <h4>Join Our Newsletter</h4>
                     <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-                    <form action="{% static 'website/forms/newsletter.php' %}" method="post" class="php-email-form">
-                        <div class="newsletter-form"><input  type="email" name="email"><input type="submit"
+                    <form action="{% url 'website:newslatter' %}" method="post">
+                        {% csrf_token %}
+                        <div class="newsletter-form"><input type="email" name="email"><input type="submit"
                                                                                              value="Subscribe"></div>
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+                        {% if messages %}
+                            <div class="toast-container position-fixed top-0 start-0 p-3" style="z-index: 1100;">
+                                {% for message in messages %}
+                                    <div class="alert
+                                         {% if message.tags == 'success' %}alert-success
+                                         {% elif message.tags == 'error' %}alert-danger
+                                         {% else %}alert-info{% endif %}
+                                         shadow-lg position-relative fade show"
+                                         role="alert"
+                                         style="min-width: 250px;">
+
+                                        {{ message }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                     </form>
                 </div>
             </div>
@@ -189,6 +205,17 @@
 <script src="{% static 'website/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
 <script src="{% static 'website/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
 <script src="{% static 'website/vendor/glightbox/js/glightbox.min.js' %}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(() => {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                let bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            });
+        }, 4000);
+    });
+</script>
 
 <!-- Main JS File -->
 <script src="{% static 'website/js/main.js' %}"></script>

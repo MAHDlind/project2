@@ -8678,3 +8678,13 @@ section,
 .clear-filter a:hover {
     background-color: #ff7875; /* روشن‌تر روی hover */
 }
+
+.progress-timer {
+    width: 100%;                 /* شروع پر */
+    animation: shrink 4s linear forwards;
+}
+
+@keyframes shrink {
+    from { width: 100%; }
+    to { width: 0%; }
+}

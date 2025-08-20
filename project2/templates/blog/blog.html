@@ -33,7 +33,7 @@
                                 <img src="{{ post.image.url }}" alt="{{ post.title }}" class="recent-post-thumb">
                                 <div class="recent-post-info">
                                     <h6 class="recent-post-title">{{ post.title|truncatechars:40 }}</h6>
-                                    <p class="recent-post-excerpt">{{ post.context|truncatechars:26 }}</p>
+                                    <p class="recent-post-excerpt">{{ post.published_date|date:"D d M Y" }}</p>
                                 </div>
                             </a>
                         {% endfor %}
@@ -87,7 +87,9 @@
                 <div class="sidebar-box">
                     <h5>Search</h5>
                     <form action="{% url 'blog:blog_home' %}" method="get" class="search-form">
-                        <input type="text" name="q" placeholder="Search..." class="form-control">
+                        <label>
+                            <input type="text" name="q" placeholder="Search..." class="form-control">
+                        </label>
                         <button type="submit"><i class="bi bi-search"></i></button>
                     </form>
                 </div>

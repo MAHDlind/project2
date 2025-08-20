@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django_browser_reload",
     'website',
     'blog',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [
