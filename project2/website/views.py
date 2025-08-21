@@ -15,16 +15,15 @@ def contact_us(request):
             form.save()
             messages.success(request, 'Your message has been sent. Thank you!')
         else:
-            messages.error(request, 'Your message encountered and error! and could not be sent.')
+            messages.error(request, 'Your message encountered an error and could not be sent.')
+        return redirect(request.META.get('HTTP_REFERER', 'website:contact_us'))
 
-        return redirect(request.META.get('HTTP_REFERER', '/'))
-
-    return render(request, 'website/contact.html')
+    return render(request, 'website/contact.html', {'form': forms.ContactForm()})
 
 def get_start(request):
     return render(request, 'website/starter-page.html')
 
-def newslatter(request):
+def newsletter(request):
     if request.method == 'POST':
         form = forms.NewsLetterForm(request.POST)
         if form.is_valid():
@@ -34,4 +33,4 @@ def newslatter(request):
             messages.error(request, 'Your subscription request did not send.')
 
         return redirect(request.META.get('HTTP_REFERER', '/'))
-    return redirect(request.META.get('HTTP_REFERER', '/'))
+    return redirect('/')

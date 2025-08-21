@@ -9,6 +9,6 @@ class AdminContact(admin.ModelAdmin):
     list_filter = ['sent_at']
     search_fields = ['email', 'name']
 
-@admin.register(models.NewsLatterForm)
+@admin.register(models.NewsLetterForm)
 class NewsLatterFormAdmin(admin.ModelAdmin):
     pass

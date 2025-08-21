@@ -8507,7 +8507,7 @@ section,
     display: flex;
     flex-direction: column;
     gap: 10px;
-    max-height: 380px;
+    max-height: 600px;
     margin-top: 90px;
     flex: 0 0 200px;
     position: sticky;
@@ -8687,4 +8687,48 @@ section,
 @keyframes shrink {
     from { width: 100%; }
     to { width: 0%; }
+}
+.category-list,
+.tags-list {
+    display: flex;
+    flex-wrap: wrap;   /* اگه آیتم‌ها زیاد بشن، میره خط بعد */
+    gap: 8px;          /* فاصله بین آیتم‌ها */
+    list-style: none;  /* حذف دایره لیست */
+    padding: 0;
+    margin: 0;
+}
+
+.category-list li,
+.tags-list li {
+    display: inline-block;
+}
+
+.category-list a,
+.tags-list a {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: #2b2b2b;   /* بک‌گراند برای جذاب‌تر شدن */
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.category-list a:hover,
+.tags-list a:hover {
+    background: #444;
+}
+
+.captcha-box {
+    display: inline-block;
+    padding: 15px 20px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+}
+
+.captcha-box:hover {
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+    transform: translateY(-2px);
 }

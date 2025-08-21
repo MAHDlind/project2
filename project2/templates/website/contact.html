@@ -144,10 +144,15 @@
                                             {% endfor %}
                                         </div>
                                     {% endif %}
-
                                     <div class="col-12 text-center">
-                                        <button type="submit" class="btn btn-primary btn-submit">SEND MESSAGE</button>
+                                        <div class="captcha-box border rounded-3 p-3 shadow-sm bg-white d-inline-block mb-3">
+                                            {{ form.captcha }}
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-submit">
+                                            <i class="bi bi-send"></i> SEND MESSAGE
+                                        </button>
                                     </div>
+
                                 </div>
                             </form>
                         </div>

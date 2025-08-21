@@ -1,5 +1,6 @@
-    {% extends 'base.html' %}
+{% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block base_pages %}
     <main class="main">
@@ -12,9 +13,9 @@
                 <p>Esse dolorum voluptatum ullam est sint nemo et est ipsa porro placeat quibusdam quia assumenda
                     numquam molestias.</p>
                 <nav class="breadcrumbs">
-                    <ol>
-                        <li><a href="{% url 'website:home_page' %}">Home</a></li>
-                        <li><a href="{% url 'blog:blog_home' %}">Blog</a></li>
+                    <ol >
+                        <li><a style="color: whitesmoke" href="{% url 'website:home_page' %}">Home</a></li>
+                        <li><a style="color: whitesmoke" href="{% url 'blog:blog_home' %}">Blog</a></li>
                         <li class="current">Blog Details</li>
                     </ol>
                 </nav>
@@ -33,8 +34,7 @@
                                 {% endfor %}
                             </div>
 
-                        <h1 class="title" data-aos="fade-up" data-aos-delay="100">The Evolution of User Interface
-                            Design: From Skeuomorphism to Neumorphism</h1>
+                        <h1 class="title" data-aos="fade-up" data-aos-delay="100">{{ post.title }}</h1>
 
                         <div class="article-meta" data-aos="fade-up" data-aos-delay="200">
                             <div class="author">
@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                             <div class="post-info">
-                                <span><i class="bi bi-calendar4-week"></i> {{ post.published_date|date:" D d M Y" }} </span>
+                                <span><i class="bi bi-calendar4-week"></i> {{ post.published_date|naturaltime }} </span>
                                 <span><i class="bi bi-clock"></i> 10 min read</span>
                                 <span><i class="bi bi-chat-square-text"></i> 32 Comments</span>
                             </div>
@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="article-wrapper">
-                        <aside class="table-of-contents" data-aos="fade-left">
+                        <aside class="table-of-contents" data-aos="fade-left" style="width: 240px;">
                             <h3>Table of Contents</h3>
                             <nav>
                                 <ul>
@@ -73,10 +73,10 @@
                             </nav>
                         </aside>
 
-                        <div class="article-content">
+                        <div class="article-content" style="max-width: 950px">
                             <div class="content-section" id="introduction" data-aos="fade-up">
                                 <p class="lead">
-                                    {{ post.context }}
+                                    {{ post.context|safe }}
                                 </p>
 
 

@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from . import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from taggit.models import Tag
 
 
-def blog_home(request, cat=None):
+def blog_home(request, cat=None, tag=None):
     posts = models.Post.objects.filter(published_status=True)
     last_posts = posts.order_by("-published_date")[:3]
 
@@ -14,11 +15,16 @@ def blog_home(request, cat=None):
     if cat:
         posts = posts.filter(category__name=cat)
 
+    if tag:
+        posts = posts.filter(tags__name=tag)
+
+
     paginator = Paginator(posts, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     categories = models.Category.objects.all()
+    all_tags = Tag.objects.all()
 
     content = {
         'posts': page_obj,
@@ -26,6 +32,8 @@ def blog_home(request, cat=None):
         'categories': categories,
         'search_query': filte,
         'current_category': cat,
+        'current_tag': tag,
+        'all_tags': all_tags,
     }
     return render(request, 'blog/blog.html', content)
 

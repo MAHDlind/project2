@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -25,7 +24,13 @@ SECRET_KEY = 'django-insecure-pod&)$rbl001868vd)5mrgd0yhnrk*7z8m5s@&8w!rs7&-9b8p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "192.168.1.5",
+    "second-djangop.duckdns.org",
+]
+
 
 
 # Application definition
@@ -41,6 +46,14 @@ INSTALLED_APPS = [
     'website',
     'blog',
     'django.contrib.humanize',
+    'django_extensions',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+    'robots',
+    "debug_toolbar",
+    'taggit',
+    'django_summernote',
+    'django_recaptcha',
 ]
 
 MIDDLEWARE = [
@@ -52,7 +65,52 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "django_browser_reload.middleware.BrowserReloadMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
+# sites settings
+SITE_ID = 2
+
+# debug toolbar settings
+#INTERNAL_IPS = ['127.0.0.1']
+
+
+# django summernote settings
+SUMMERNOTE_THEME_FILES = 'bs4'
+
+SUMMERNOTE_CONFIG = {
+    # Using SummernoteWidget - iframe mode, default
+    'iframe': True,
+
+    # You can put custom Summernote settings
+    'summernote': {
+        # As an example, using Summernote Air-mode
+        'airMode': False,
+
+        # Change editor size
+        'width': '1030',
+        'height': '480',
+
+        # Toolbar customization
+        # https://summernote.org/deep-dive/#custom-toolbar-popover
+        'toolbar': [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']],
+        ],
+    }
+}
+
+# Captcha settings
+SILENCED_SYSTEM_CHECKS = ['django_recaptcha.recaptcha_test_key_error']
+
+RECAPTCHA_PUBLIC_KEY = "6LeWga0rAAAAAMS5vF0AGeTC0uFb5i1qE73FTnn9"
+RECAPTCHA_PRIVATE_KEY = "6LeWga0rAAAAAAKErggEbC7h5yarLqH8w80RkLCL"
+
 
 ROOT_URLCONF = 'project_root.urls'
 
@@ -73,7 +131,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project_root.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
@@ -83,7 +140,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -103,7 +159,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
@@ -114,7 +169,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/

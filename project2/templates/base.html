@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+{% load humanize %}
 
 <head>
     <meta charset="utf-8">
@@ -99,7 +100,7 @@
                 <div class="col-lg-6">
                     <h4>Join Our Newsletter</h4>
                     <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-                    <form action="{% url 'website:newslatter' %}" method="post">
+                    <form action="{% url 'website:newsletter' %}" method="post">
                         {% csrf_token %}
                         <div class="newsletter-form"><input type="email" name="email"><input type="submit"
                                                                                              value="Subscribe"></div>

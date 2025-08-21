@@ -1,5 +1,7 @@
+from django.urls import reverse
 from django.db import models
 from django.contrib.auth.models import User
+from taggit.managers import TaggableManager
 # Create your models here.
 
 class Category(models.Model):
@@ -16,6 +18,7 @@ class Post(models.Model):
     subject = models.CharField(max_length=255, null=False)
     context = models.TextField(null=False)
     category = models.ManyToManyField(Category)
+    tags = TaggableManager()
     published_date = models.DateTimeField(null=True)
     published_status = models.BooleanField(default=False)
     updated_at = models.DateTimeField(auto_now=True)
@@ -26,6 +29,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('blog:blog_details', kwargs={'pid': self.id})
 
 
 class Profile(models.Model):

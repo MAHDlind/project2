@@ -14,16 +14,34 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
-from . import settings
+from debug_toolbar.toolbar import debug_toolbar_urls
 from django.conf.urls.static import static
+from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
+from django.urls import path, include
+from blog.sitemaps import BlogSitemap
+from website.sitemaps import StaticViewSitemap
+from . import settings
+
+
+sitemaps = {
+    "static": StaticViewSitemap,
+    "blog": BlogSitemap,
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("__reload__/", include("django_browser_reload.urls")), # Include browser-reload app's URL configuration'
+    path("__reload__/", include("django_browser_reload.urls")),  # Include browser-reload app's URL configuration'
     path('', include('website.urls')),
-    path('blog/', include('blog.urls'))
-]
+    path('blog/', include('blog.urls')),
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
+    path('robots.txt', include('robots.urls')),
+    path('summernote/', include('django_summernote.urls')),
+] + debug_toolbar_urls()
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
