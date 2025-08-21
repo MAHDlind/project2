@@ -675,6 +675,15 @@ h6 {
     transition: all 0.4s;
 }
 
+/* Ensure correct pinning on devices with safe areas */
+@media (max-width: 767.98px) {
+    .scroll-top {
+        right: max(12px, env(safe-area-inset-right));
+        bottom: max(12px, env(safe-area-inset-bottom));
+        left: auto; /* prevent any left positioning from affecting layout */
+    }
+}
+
 .scroll-top i {
     font-size: 24px;
     color: var(--contrast-color);
@@ -5671,6 +5680,49 @@ section,
     }
 }
 
+/* Reduce blog image size on small screens */
+@media (max-width: 576px) {
+    .blog-hero.section {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    /* Ensure a reasonable image height */
+    .blog-hero .blog-item,
+    .blog-hero .main-feature {
+        aspect-ratio: 16/9;
+    }
+
+    .blog-hero .blog-item img,
+    .blog-hero .main-feature img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Optional: limit max height further on very small devices */
+    .blog-hero .blog-item,
+    .blog-hero .main-feature {
+        max-height: 260px;
+    }
+
+    /* Blog details featured image */
+    .blog-details .article-featured-image img {
+        width: 100%;
+        height: auto;
+        max-height: 280px;
+        object-fit: cover;
+    }
+
+    /* Ensure any img-fluid in blog cards doesn't exceed viewport height */
+    .blog-hero .img-fluid {
+        width: 100%;
+        height: auto;
+        max-height: 260px;
+        object-fit: cover;
+    }
+}
+
 .blog-hero .regular-posts .blog-item {
     aspect-ratio: 16/9;
 }
@@ -8488,14 +8540,13 @@ section,
 }
 
 .blog-layout {
-    display: flex;
-    justify-content: center; /* همه‌چیز وسط چین شه */
-    gap: 20px; /* فاصله بین سایدبار و کانتنت */
+    /* Use normal block to let Bootstrap grid handle layout */
+    display: block;
 }
 
 .blog-layout .row {
     display: flex !important;
-    flex-wrap: nowrap;
+    flex-wrap: wrap; /* allow wrapping on small screens */
     justify-content: center;
 }
 
@@ -8534,13 +8585,51 @@ section,
     flex: 0 0 290px;
 }
 
+/* Mobile adjustments for blog layout */
+@media (max-width: 991.98px) {
+    .blog-layout.container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .blog-layout .row {
+        flex-wrap: wrap !important;
+        justify-content: stretch;
+    }
+
+    .sidebar {
+        position: static; /* disable sticky on mobile */
+        top: auto;
+        max-height: none;
+        margin-top: 20px;
+        flex: 1 1 100% !important; /* full width */
+        width: 100%;
+    }
+
+    .left {
+        margin-left: 0 !important;
+        flex: 1 1 100% !important;
+    }
+
+    .right {
+        flex: 1 1 100% !important;
+    }
+
+    .content {
+        width: 100%;
+        max-width: 100%;
+        flex: 1 1 100% !important;
+    }
+}
+
 .right {
     margin-right: 20px !important;
     flex: 0 0 290px;
 }
 
 .content {
-    flex: 0 0 1000px;
+    /* Let Bootstrap grid manage widths; avoid fixed large flex-basis that causes overflow on mobile */
+    flex: 1 1 auto;
     max-width: 900px;
 }
 
