@@ -1,14 +1,13 @@
-
 from django import forms
 from . import models
-from django_recaptcha.fields import ReCaptchaField
-from django_recaptcha.widgets import ReCaptchaV2Checkbox
+from snowpenguin.django.recaptcha3.fields import ReCaptchaField
+from snowpenguin.django.recaptcha3.widgets import ReCaptchaHiddenInput
 
 class ContactForm(forms.ModelForm):
+    captcha = ReCaptchaField(widget=ReCaptchaHiddenInput())
     class Meta:
         model = models.Contact
         fields = ['name', 'email', 'subject', 'message']
-    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
 
 class NewsLetterForm(forms.ModelForm):
     class Meta:

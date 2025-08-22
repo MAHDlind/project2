@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     'taggit',
     'django_summernote',
-    'django_recaptcha',
+    'snowpenguin.django.recaptcha3',
 ]
 
 MIDDLEWARE = [
@@ -106,10 +106,11 @@ SUMMERNOTE_CONFIG = {
 }
 
 # Captcha settings
-SILENCED_SYSTEM_CHECKS = ['django_recaptcha.recaptcha_test_key_error']
-
-RECAPTCHA_PUBLIC_KEY = "6LeWga0rAAAAAMS5vF0AGeTC0uFb5i1qE73FTnn9"
-RECAPTCHA_PRIVATE_KEY = "6LeWga0rAAAAAAKErggEbC7h5yarLqH8w80RkLCL"
+RECAPTCHA_PRIVATE_KEY = '6LfZ-q0rAAAAAOxARHeOL953hcIwew4wAj-5jmA3'
+RECAPTCHA_PUBLIC_KEY = '6LfZ-q0rAAAAADpDFX2-fYfqrBxI7TfkXsqxyQcb'
+RECAPTCHA_DEFAULT_ACTION = 'generic'
+RECAPTCHA_SCORE_THRESHOLD = 0.3
+RECAPTCHA_LANGUAGE = 'en'
 
 
 ROOT_URLCONF = 'project_root.urls'
