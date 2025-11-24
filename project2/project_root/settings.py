@@ -42,18 +42,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "django_browser_reload",
+    # "django_browser_reload",
     'website',
     'blog',
     'django.contrib.humanize',
-    'django_extensions',
+    # 'django_extensions',
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'robots',
-    "debug_toolbar",
+    # "debug_toolbar",
     'taggit',
     'django_summernote',
-    'snowpenguin.django.recaptcha3',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -64,8 +64,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    # "django_browser_reload.middleware.BrowserReloadMiddleware",
+    # "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 # sites settings
 SITE_ID = 2
@@ -178,6 +178,9 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
