@@ -1,5 +1,7 @@
 from django.contrib import admin
 from . import models
+
+
 # Register your models here.
 
 @admin.register(models.Contact)
@@ -8,6 +10,7 @@ class AdminContact(admin.ModelAdmin):
     ordering = ['sent_at']
     list_filter = ['sent_at']
     search_fields = ['email', 'name']
+
 
 @admin.register(models.NewsLetterForm)
 class NewsLatterFormAdmin(admin.ModelAdmin):

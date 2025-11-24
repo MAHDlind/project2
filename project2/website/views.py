@@ -2,11 +2,14 @@ from django.shortcuts import render, redirect
 from . import forms
 from django.contrib import messages
 
+
 def home_page(request):
     return render(request, 'website/index.html')
 
+
 def about_page(request):
     return render(request, 'website/about.html')
+
 
 def contact_us(request):
     if request.method == 'POST':
@@ -20,8 +23,10 @@ def contact_us(request):
 
     return render(request, 'website/contact.html', {'form': forms.ContactForm()})
 
+
 def get_start(request):
     return render(request, 'website/starter-page.html')
+
 
 def newsletter(request):
     if request.method == 'POST':

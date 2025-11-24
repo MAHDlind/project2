@@ -18,7 +18,6 @@ def blog_home(request, cat=None, tag=None):
     if tag:
         posts = posts.filter(tags__name=tag)
 
-
     paginator = Paginator(posts, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -43,4 +42,3 @@ def blog_details(request, pid):
     author_profile = get_object_or_404(models.Profile, user=post.author.id)
     context = {'post': post, 'author': author_profile}
     return render(request, 'blog/blog-details.html', context)
-

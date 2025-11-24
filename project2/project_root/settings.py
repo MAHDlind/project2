@@ -31,8 +31,6 @@ ALLOWED_HOSTS = [
     "second-djangop.duckdns.org",
 ]
 
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -71,7 +69,7 @@ MIDDLEWARE = [
 SITE_ID = 2
 
 # debug toolbar settings
-#INTERNAL_IPS = ['127.0.0.1']
+# INTERNAL_IPS = ['127.0.0.1']
 
 
 # django summernote settings
@@ -111,7 +109,6 @@ RECAPTCHA_PUBLIC_KEY = '6LfZ-q0rAAAAADpDFX2-fYfqrBxI7TfkXsqxyQcb'
 RECAPTCHA_DEFAULT_ACTION = 'generic'
 RECAPTCHA_SCORE_THRESHOLD = 0.3
 RECAPTCHA_LANGUAGE = 'en'
-
 
 ROOT_URLCONF = 'project_root.urls'
 

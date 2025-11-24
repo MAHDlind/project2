@@ -30,21 +30,21 @@ sitemaps = {
 }
 
 urlpatterns = [
-                  path('admin/', admin.site.urls),
-                  # path("__reload__/", include("django_browser_reload.urls")),
-                  # Include browser-reload app's URL configuration'
-                  path('', include('website.urls')),
-                  path('blog/', include('blog.urls')),
-                  path(
-                      "sitemap.xml",
-                      sitemap,
-                      {"sitemaps": sitemaps},
-                      name="django.contrib.sitemaps.views.sitemap",
-                  ),
-                  path('robots.txt', include('robots.urls')),
-                  path('summernote/', include('django_summernote.urls')),
-                  path("captcha/", include("captcha.urls")),
+    path('admin/', admin.site.urls),
+    # path("__reload__/", include("django_browser_reload.urls")),
+    # Include browser-reload app's URL configuration'
+    path('', include('website.urls')),
+    path('blog/', include('blog.urls')),
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
+    path('robots.txt', include('robots.urls')),
+    path('summernote/', include('django_summernote.urls')),
+    path("captcha/", include("captcha.urls")),
 
-              ]  #+ debug_toolbar_urls()
+]  # + debug_toolbar_urls()
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
